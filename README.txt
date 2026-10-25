@@ -1,1 +1,0 @@
-Real Driving Simulator 0.7 — prototype WebGL expérimental. 5 caméras : extérieure, conducteur, capot, pare-chocs, libre. Bouton caméra / touche C / Y manette. Vue libre : glisser le doigt sur le jeu ou utiliser le stick droit. Publier index.html à la racine de GitHub Pages. Nécessite une connexion pour charger Three.js.
