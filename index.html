@@ -1,4 +1,4 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Real Driving Simulator 1.2</title><style>html,body{margin:0;overflow:hidden;background:#111;color:white;font-family:system-ui}canvas{display:block}#hud{position:absolute;top:12px;left:12px;background:#091321cb;padding:12px;border-radius:12px;min-width:190px;line-height:1.65;font-size:14px}#help{position:absolute;right:12px;top:12px;background:#091321cb;padding:12px;border-radius:12px;font-size:12px;max-width:245px}#touch{position:absolute;bottom:15px;width:100%;display:flex;justify-content:space-between;pointer-events:none}#touch>div{display:flex;gap:7px;pointer-events:auto}button{background:#183650d9;color:white;border:1px solid #a9c4d6;border-radius:10px;padding:13px;font-weight:bold;touch-action:none}#banner{position:absolute;left:50%;transform:translateX(-50%);top:12px;background:#122f42dd;padding:9px 14px;border-radius:12px;max-width:48%;text-align:center;font-size:13px}#garageButton{position:absolute;right:12px;top:104px;z-index:3}#garage{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,450px);padding:22px;background:#102333f2;border:1px solid #86b4c9;border-radius:20px;box-shadow:0 15px 70px #0009;text-align:center}.garageTitle{font-size:21px;font-weight:800;margin-bottom:18px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choices button{min-height:95px}.choices button.selected{border:3px solid #ffe27b;background:#275b76}#garage p{font-size:12px;opacity:.85}#closegarage{background:#16764b;margin-top:10px}#err{position:absolute;top:40%;width:100%;text-align:center;color:#ffb5b5}#hud{top:env(safe-area-inset-top,8px);left:8px;min-width:0;width:148px;max-width:42vw;padding:9px;line-height:1.38;font-size:12px;box-sizing:border-box;pointer-events:none}#hud b{font-size:11px}#help{display:none;top:52px;left:50%;right:auto;transform:translateX(-50%);width:min(88vw,460px);max-width:none;z-index:8;font-size:13px;line-height:1.6}#help.open{display:block}#banner{top:8px;left:auto;right:8px;transform:none;max-width:42vw;padding:7px;font-size:11px;pointer-events:none}#garageButton{top:auto;bottom:calc(100px + env(safe-area-inset-bottom,0px));right:8px;padding:9px;font-size:12px}#touch{bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:0 7px;box-sizing:border-box;gap:6px}#touch>div{gap:4px}#touch button{padding:9px 7px;min-width:39px;min-height:49px;font-size:12px}#touch .primary{background:#226e4e}#helpButton{position:absolute;right:8px;top:73px;z-index:5;padding:7px 11px;font-size:12px}#startButton{position:absolute;right:8px;top:113px;z-index:5;padding:7px 11px;font-size:12px;background:#256344}#garage{box-sizing:border-box;max-height:78dvh;overflow:auto}#state{font-size:11px}#modelButton{position:absolute;right:8px;bottom:calc(148px + env(safe-area-inset-bottom,0px));background:#183650d9;border:1px solid #a9c4d6;border-radius:9px;padding:8px;color:white;font-weight:bold;font-size:12px;z-index:4}#modelStatus{position:absolute;bottom:205px;right:8px;max-width:200px;font-size:11px;background:#102333dd;border-radius:7px;padding:4px;display:none}#clutch{background:#42637a}@media(min-width:700px){#hud{width:195px;font-size:14px}#touch button{min-width:65px;font-size:14px}} </style></head><body><div id="hud"><b>REAL DRIVING SIMULATOR 1.2</b><div id="speed">0 km/h</div><div id="rpm">900 tr/min</div><div id="gear">Rapport : N</div><div id="score">Auto-école : 100 points</div><div id="mode">Caméra : extérieure</div><div id="state">Moteur : allumé</div></div><button id="helpButton">❔ Aide</button><button id="startButton">⏻ Démarrer</button><div id="help">🎮 Xbox : RT accélérer · LT freiner · Stick gauche diriger · A embrayage · LB/RB rapports (R/N/1–6) · Y caméra · Stick droit vue libre · X clignotant<br>⌨️ Z/W accélérer · S freiner · Q/A et D diriger · E embrayage · ↑/↓ rapports (R/N/1–6) · C caméra · souris/doigt en vue libre · I clignotant · R réinitialiser<br>ℹ️ Prototype 1.2 : carrosserie affinée, jantes détaillées, marche arrière, volant animé, trafic scripté et physique simplifiée. Charge ton propre modèle GLB avec autorisation d’utilisation.</div><div id="garage"><div class="garageTitle">🚗 GARAGE · Choisis ta citadine</div><div class="choices"><button id="classic">Clio 5 inspirée · Classique<br><small>Bleu · boîte manuelle R/N/1–6</small></button><button id="sport">Clio 5 inspirée · RS Line<br><small>Rouge · look sportif</small></button></div><p>Modèles originaux stylisés, sans logo Renault. Ce prototype ne reproduit pas fidèlement une Clio.</p><button id="closegarage">Prendre la route</button></div><button id="garageButton">🚗 Garage</button><label id="modelButton" for="modelFile">📦 Charger GLB</label><input id="modelFile" type="file" accept=".glb,model/gltf-binary" hidden><div id="modelStatus" aria-live="polite"></div><div id="banner">Version 1.2 · Détails extérieurs renforcés · Boîte R/N/1–6 · Limite 50 km/h.</div><div id="touch"><div><button data-k="left">◀</button><button data-k="right">▶</button></div><div><button id="cam" aria-label="Changer de caméra">📷</button><button id="down">−</button><button id="clutch">Embr.</button><button id="up">+</button><button data-k="brake">Frein</button><button class="primary" data-k="gas">Gaz</button></div></div><div id="err"></div><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}</script><script type="module">
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Real Driving Simulator 1.3</title><style>html,body{margin:0;overflow:hidden;background:#111;color:white;font-family:system-ui}canvas{display:block}#hud{position:absolute;top:12px;left:12px;background:#091321cb;padding:12px;border-radius:12px;min-width:190px;line-height:1.65;font-size:14px}#help{position:absolute;right:12px;top:12px;background:#091321cb;padding:12px;border-radius:12px;font-size:12px;max-width:245px}#touch{position:absolute;bottom:15px;width:100%;display:flex;justify-content:space-between;pointer-events:none}#touch>div{display:flex;gap:7px;pointer-events:auto}button{background:#183650d9;color:white;border:1px solid #a9c4d6;border-radius:10px;padding:13px;font-weight:bold;touch-action:none}#banner{position:absolute;left:50%;transform:translateX(-50%);top:12px;background:#122f42dd;padding:9px 14px;border-radius:12px;max-width:48%;text-align:center;font-size:13px}#garageButton{position:absolute;right:12px;top:104px;z-index:3}#garage{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90vw,450px);padding:22px;background:#102333f2;border:1px solid #86b4c9;border-radius:20px;box-shadow:0 15px 70px #0009;text-align:center}.garageTitle{font-size:21px;font-weight:800;margin-bottom:18px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choices button{min-height:95px}.choices button.selected{border:3px solid #ffe27b;background:#275b76}#garage p{font-size:12px;opacity:.85}#closegarage{background:#16764b;margin-top:10px}#err{position:absolute;top:40%;width:100%;text-align:center;color:#ffb5b5}#hud{top:env(safe-area-inset-top,8px);left:8px;min-width:0;width:148px;max-width:42vw;padding:9px;line-height:1.38;font-size:12px;box-sizing:border-box;pointer-events:none}#hud b{font-size:11px}#help{display:none;top:52px;left:50%;right:auto;transform:translateX(-50%);width:min(88vw,460px);max-width:none;z-index:8;font-size:13px;line-height:1.6}#help.open{display:block}#banner{top:8px;left:auto;right:8px;transform:none;max-width:42vw;padding:7px;font-size:11px;pointer-events:none}#garageButton{top:auto;bottom:calc(100px + env(safe-area-inset-bottom,0px));right:8px;padding:9px;font-size:12px}#touch{bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:0 7px;box-sizing:border-box;gap:6px}#touch>div{gap:4px}#touch button{padding:9px 7px;min-width:39px;min-height:49px;font-size:12px}#touch .primary{background:#226e4e}#helpButton{position:absolute;right:8px;top:73px;z-index:5;padding:7px 11px;font-size:12px}#startButton{position:absolute;right:8px;top:113px;z-index:5;padding:7px 11px;font-size:12px;background:#256344}#garage{box-sizing:border-box;max-height:78dvh;overflow:auto}#state{font-size:11px}#modelButton{position:absolute;right:8px;bottom:calc(148px + env(safe-area-inset-bottom,0px));background:#183650d9;border:1px solid #a9c4d6;border-radius:9px;padding:8px;color:white;font-weight:bold;font-size:12px;z-index:4}#modelStatus{position:absolute;bottom:205px;right:8px;max-width:200px;font-size:11px;background:#102333dd;border-radius:7px;padding:4px;display:none}#clutch{background:#42637a}#lightsButton,#blinkButton{position:absolute;right:8px;z-index:5;padding:8px 9px;font-size:12px}#lightsButton{top:153px}#blinkButton{top:194px}#garage{max-height:74dvh}#garage .choices button{min-height:78px;font-size:12px}#garage .choices small{font-size:10px;opacity:.87}#vehicleName{font-size:11px;color:#c3ebff}#touch button:active{background:#4a84ae}#modelButton{bottom:calc(165px + env(safe-area-inset-bottom,0px))}@media(max-width:400px){#touch button{min-width:34px;padding:7px 5px;font-size:11px}#garage{padding:13px}.garageTitle{font-size:18px}}@media(min-width:700px){#hud{width:195px;font-size:14px}#touch button{min-width:65px;font-size:14px}} </style></head><body><div id="hud"><b>REAL DRIVING SIMULATOR 1.3</b><div id="speed">0 km/h</div><div id="rpm">900 tr/min</div><div id="gear">Rapport : N</div><div id="score">Auto-école : 100 points</div><div id="mode">Caméra : extérieure</div><div id="state">Moteur : allumé</div><div id="vehicleName">Citadine 5 classique</div></div><button id="helpButton">❔ Aide</button><button id="startButton">⏻ Démarrer</button><div id="help">🎮 Xbox : RT accélérer · LT freiner · Stick gauche diriger · A embrayage · LB/RB rapports (R/N/1–6) · Y caméra · Stick droit vue libre · X clignotant · B feux<br>⌨️ Z/W accélérer · S freiner · Q/A et D diriger · E embrayage · ↑/↓ rapports (R/N/1–6) · C caméra · souris/doigt en vue libre · I clignotant · L feux · R réinitialiser<br>ℹ️ Prototype 1.3 : 4 véhicules stylisés, roues animées, boîte manuelle, feux et clignotants actifs, trafic scripté. Physique simplifiée. Charge ton propre modèle GLB avec autorisation d’utilisation.</div><div id="garage"><div class="garageTitle">🚗 GARAGE · 4 véhicules</div><div class="choices"><button id="classic">Citadine 5 · classique<br><small>Bleu · 90 ch simulés</small></button><button id="sport">Citadine 5 · sportive<br><small>Rouge · 130 ch simulés</small></button><button id="modern">Citadine 6 · 2026<br><small>Vert clair · 115 ch simulés</small></button><button id="suv">SUV compact · Duster inspiré<br><small>Bronze · 100 ch simulés</small></button></div><p>Véhicules 3D originaux inspirés de catégories automobiles françaises, sans logos officiels ni reproduction exacte de modèles réels.</p><button id="closegarage">Prendre la route</button></div><button id="garageButton">🚗 Garage</button><button id="lightsButton" title="Allumer/éteindre les phares">💡 Feux</button><button id="blinkButton" title="Activer/désactiver les clignotants">↔ Clign.</button><label id="modelButton" for="modelFile">📦 Charger GLB</label><input id="modelFile" type="file" accept=".glb,model/gltf-binary" hidden><div id="modelStatus" aria-live="polite"></div><div id="banner">Version 1.3 · 4 véhicules · Feux actifs · Embrayage · Limite 50 km/h.</div><div id="touch"><div><button data-k="left">◀</button><button data-k="right">▶</button></div><div><button id="cam" aria-label="Changer de caméra">📷</button><button id="down">−</button><button id="clutch">Embr.</button><button id="up">+</button><button data-k="brake">Frein</button><button class="primary" data-k="gas">Gaz</button></div></div><div id="err"></div><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}</script><script type="module">
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x9ac6e5);scene.fog=new THREE.Fog(0x9ac6e5,180,430);
@@ -234,6 +234,107 @@ box(.4,.18,.07,screenMat,-.39,1.46,-1.17,cockpit);box(.34,.21,.07,screenMat,.37,
 for(const x of [-.69,.66])box(.22,.09,.08,chrome,x,1.33,-1.18,cockpit);
 box(.13,.38,.12,dashboard,.16,.95,-.25,cockpit);box(.15,.09,.16,chrome,.16,1.15,-.25,cockpit);
 
+// 1.3 — Four distinct original lightweight vehicle shells.
+// They replace the original polygonal shape while keeping its physics & city.
+const legacyCarMeshes=[...car.children];legacyCarMeshes.forEach(x=>x.visible=false);
+const vehicleDefs={
+ classic:{name:'Citadine 5 classique',power:90,mass:1120,top:1.84,roofStart:-.74,roofEnd:.67,w:1.84,colour:0x247acb,style:'hatch',wheelbase:1.34},
+ sport:{name:'Citadine 5 sportive',power:130,mass:1180,top:1.77,roofStart:-.90,roofEnd:.70,w:1.88,colour:0xd8243a,style:'sport',wheelbase:1.35},
+ modern:{name:'Citadine 6 (inspirée)',power:115,mass:1190,top:1.77,roofStart:-.82,roofEnd:.67,w:1.95,colour:0x78b89a,style:'modern',wheelbase:1.38},
+ suv:{name:'SUV compact (Duster inspiré)',power:100,mass:1350,top:2.04,roofStart:-.93,roofEnd:1.05,w:2.04,colour:0xb69a61,style:'suv',wheelbase:1.42}
+};
+const vehicleModels={}, wheelRotors={}, frontWheelPivots={}, lampsByType={};
+const surf=(colour,r=.52,metal=.0)=>new THREE.MeshStandardMaterial({color:colour,roughness:r,metalness:metal,side:THREE.DoubleSide});
+const lampSurface=(colour)=>new THREE.MeshStandardMaterial({color:colour,roughness:.2,emissive:colour,emissiveIntensity:.04});
+function part(group,w,h,d,material,x,y,z){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;group.add(m);return m}
+function ball(group,material,x,y,z,sx,sy,sz){const m=new THREE.Mesh(new THREE.SphereGeometry(1,16,10),material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;group.add(m);return m}
+function tube(group,coords,radius,material){const p=coords.map(c=>new THREE.Vector3(...c));const curve=new THREE.CatmullRomCurve3(p);const m=new THREE.Mesh(new THREE.TubeGeometry(curve,Math.max(5,p.length*4),radius,5,false),material);group.add(m);return m}
+function taperedBody(group,sections,material){const verts=[],inds=[];for(const [z,halfWidth,low,high] of sections)verts.push(-halfWidth,low,z,halfWidth,low,z,halfWidth,high,z,-halfWidth,high,z);
+ for(let i=0;i<sections.length-1;i++)for(let side=0;side<4;side++){const a=i*4+side,b=i*4+(side+1)%4,c=(i+1)*4+(side+1)%4,d=(i+1)*4+side;inds.push(a,b,c,a,c,d)}
+ inds.push(0,1,2,0,2,3);const k=(sections.length-1)*4;inds.push(k,k+2,k+1,k,k+3,k+2);
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.setIndex(inds);g.computeVertexNormals();const m=new THREE.Mesh(g,material);m.castShadow=true;m.receiveShadow=true;group.add(m);return m}
+function vehicleShell(spec){
+ const model=new THREE.Group();car.add(model);const body=surf(spec.colour,.28,.20),lower=surf(0x17212b,.7),chrome=surf(0xbac5cc,.26,.6),windowMat=surf(0x183a4b,.11,.34),tireMat=surf(0x15191c,.95),rimMat=surf(0xaebec7,.24,.67),cabin=surf(0x2c3139,.85),seat=surf(spec.style==='sport'?0x252a30:0x4b5057,.9),headLight=lampSurface(0xe8faff),tailLight=lampSurface(0xdb2131),turnLight=lampSurface(0xffaa25);
+ const half=spec.w/2, suv=spec.style==='suv',sporty=spec.style==='sport',modern=spec.style==='modern';
+ const height=suv?1.25:1.08;const front=-2.15,rear=suv?2.24:2.13;
+ taperedBody(model,[[front,half*.80,.54,.82],[front+.22,half*.98,.50,1.00],[-1.36,half,.46,height], [.83,half,.46,height],[rear-.20,half*.97,.52,.96],[rear,half*.85,.55,.78]],body);
+ // Nose, rear deck, sculpted hood & door surfaces.
+ ball(model,body,0,.98,-1.65,half*.98,.12,.65);
+ for(const sign of [-1,1]){
+  ball(model,body,sign*(half-.12),.75,-1.26,.19,.26,.9);
+  ball(model,body,sign*(half-.12),.78,1.22,.19,.26,.67);
+  part(model,.035,.45,1.55,body,sign*(half+.004),.89,-.11);
+  for(const dz of [-.67,.60])part(model,.11,.048,.22,chrome,sign*(half+.026),1.10,dz);
+  part(model,.025,.49,.04,lower,sign*(half+.018),1.02,.04);
+  part(model,.07,.09,2.75,lower,sign*(half-.025),.52,.04);
+  ball(model,body,sign*(half+.12),1.34,-.72,.23,.115,.17);
+  part(model,.028,.13,.22,windowMat,sign*(half+.32),1.34,-.72);
+ }
+ // Roof is taller, longer and squarer for SUV.
+ const roofY=spec.top,roofHalf=half*(suv?.88:.79);
+ taperedBody(model,[[spec.roofStart-.62,half*.81,1.08,1.11],[spec.roofStart,roofHalf,1.12,roofY-.05],[spec.roofStart+.19,roofHalf*.98,1.12,roofY],[spec.roofEnd-.19,roofHalf*.98,1.12,roofY],[spec.roofEnd,roofHalf,1.12,roofY-.07],[spec.roofEnd+.38,half*.80,1.09,1.11]],body);
+ part(model,roofHalf*1.94,.065,Math.max(.8,spec.roofEnd-spec.roofStart-.17),body,0,roofY-.02,(spec.roofStart+spec.roofEnd)/2);
+ // Window planes: windshield / rear windshield, trimmed with pillars.
+ const wind=part(model,roofHalf*1.88,.024,.78,windowMat,0,(1.18+roofY)/2,spec.roofStart-.25);wind.rotation.x=-Math.atan2(roofY-1.17,.59);
+ const rearGlass=part(model,roofHalf*1.83,.024,suv?.50:.61,windowMat,0,(roofY+1.14)/2,spec.roofEnd+.18);rearGlass.rotation.x=Math.atan2(roofY-1.13,suv?.3:.5);
+ for(const side of [-1,1]){
+  part(model,.023,(roofY-1.14)*.79,Math.max(.5,spec.roofEnd-spec.roofStart-.16),windowMat,side*(roofHalf+.018),(1.15+roofY)/2,(spec.roofStart+spec.roofEnd)/2);
+  for(const pz of [spec.roofStart+.20,(spec.roofStart+spec.roofEnd)/2+.13,spec.roofEnd-.12])part(model,.05,roofY-1.10,.07,lower,side*(roofHalf+.045),(roofY+1.11)/2,pz);
+  tube(model,[[side*roofHalf,roofY-.05,spec.roofStart],[side*roofHalf,roofY-.01,.18],[side*roofHalf,roofY-.06,spec.roofEnd]],.024,chrome);
+  // Sculpted nose lighting signatures (different on modern 2026).
+  part(model,modern?.47:.35,.10,.06,headLight,side*half*.64,.94,front-.05);
+  tube(model,[[side*half*.40,.91,front-.086],[side*half*.72,modern?1.02:.98,front-.086],[side*half*.87,.89,front-.083]],modern?.031:.019,headLight);
+  part(model,.12,.08,.08,turnLight,side*half*.9,.81,front-.075);
+  part(model,.29,.19,.07,tailLight,side*half*.77,.91,rear+.049);
+  part(model,.075,.16,.08,tailLight,side*half*.60,.85,rear+.055);
+  part(model,.13,.075,.07,turnLight,side*half*.88,.82,rear+.06);
+ }
+ part(model,half*1.38,.23,.065,lower,0,.71,front-.08);
+ for(let sl=-3;sl<=3;sl++)part(model,.07,.13,.066,chrome,sl*.15,.71,front-.123);
+ part(model,half*1.62,.16,.14,lower,0,.51,rear+.03);
+ part(model,.58,.19,.07,surf(0xf0f0e5),0,.70,rear+.11);
+ if(sporty){part(model,half*1.68,.085,.28,lower,0,1.42,rear-.01);part(model,1.17,.13,.12,lower,0,.48,front-.08)}
+ if(suv){for(const side of [-1,1]){part(model,.075,.10,1.92,lower,side*(roofHalf-.08),roofY+.08,.03);part(model,.04,.18,1.65,lower,side*half,.55,-.10)}}
+ if(modern){tube(model,[[-half*.56,.66,front-.12],[0,.68,front-.15],[half*.56,.66,front-.12]],.035,chrome)}
+ // Independent road wheels, each has a steering pivot and rotating tyre/rim.
+ const rotors=[],pivots=[];const wheelR=suv?.405:.35;
+ for(const sx of [-1,1])for(const wz of [-spec.wheelbase,spec.wheelbase]){
+  const pivot=new THREE.Group();pivot.position.set(sx*(half-.035),wheelR+.045,wz);model.add(pivot);
+  const rotor=new THREE.Group();pivot.add(rotor);
+  const tire=new THREE.Mesh(new THREE.CylinderGeometry(wheelR,wheelR,.235,24),tireMat);tire.rotation.z=Math.PI/2;tire.castShadow=true;rotor.add(tire);
+  const rim=new THREE.Mesh(new THREE.CylinderGeometry(wheelR*.66,wheelR*.66,.246,24),rimMat);rim.rotation.z=Math.PI/2;rotor.add(rim);
+  const rimCenter=part(rotor,.27,.04,.04,chrome,sx*.132,0,0);
+  for(let s=0;s<6;s++){const a=s*Math.PI/3;const spoke=part(rotor,.028,.06,wheelR*.53,lower,sx*.132,Math.cos(a)*wheelR*.21,Math.sin(a)*wheelR*.21);spoke.rotation.x=a}
+  rotors.push(rotor);if(wz<0)pivots.push(pivot);
+  const arch=new THREE.Mesh(new THREE.TorusGeometry(wheelR+.055,.055,7,24,Math.PI),lower);arch.rotation.y=Math.PI/2;arch.position.set(sx*(half+.055),wheelR+.05,wz);model.add(arch);
+ }
+ // Instrumented cockpit with driver seat, steering wheel, touchscreen, central console.
+ const cockpitGroup=new THREE.Group();model.add(cockpitGroup);
+ part(cockpitGroup,half*1.60,.21,.56,cabin,0,1.12,-1.03);
+ part(cockpitGroup,.46,.22,.09,lower,-.39,1.36,-1.18);
+ part(cockpitGroup,.33,.21,.08,windowMat,.34,1.36,-1.18);
+ for(const sx of [-1,1]){
+  part(cockpitGroup,.48,.14,.59,seat,sx*.44,.81,.67);
+  part(cockpitGroup,.48,.74,.15,seat,sx*.44,1.16,.95);
+  part(cockpitGroup,.27,.14,.15,seat,sx*.44,1.57,.96);
+ }
+ const steeringGroup=new THREE.Group();cockpitGroup.add(steeringGroup);steeringGroup.position.set(-.40,1.34,-.75);
+ const steeringRim=new THREE.Mesh(new THREE.TorusGeometry(.25,.034,9,28),lower);steeringRim.rotation.x=-.28;steeringGroup.add(steeringRim);
+ part(steeringGroup,.46,.052,.04,chrome,0,0,0);part(steeringGroup,.048,.38,.04,chrome,0,0,0);
+ part(cockpitGroup,.21,.10,.25,cabin,.17,1.11,-.25);
+ for(const x of [-.64,.63])part(cockpitGroup,.17,.07,.06,chrome,x,1.27,-1.24);
+ return {group:model,wheels:rotors,front:pivots,headlights:[headLight],tail:[tailLight],turn:[turnLight],steering:steeringGroup,spec};
+}
+for(const [key,spec] of Object.entries(vehicleDefs))vehicleModels[key]=vehicleShell(spec);
+const originalCarMeshes=[...legacyCarMeshes];
+let activeVehicle=null;
+let lightsOn=false;
+function updateVehicleLights(braking,time){for(const v of Object.values(vehicleModels)){
+ v.headlights[0].emissiveIntensity=lightsOn?2.1:.035;
+ v.tail[0].emissiveIntensity=braking?3.0:(lightsOn?.50:.06);
+ v.turn[0].emissiveIntensity=indicator&&Math.floor(time*2.1)%2===0?2.5:.035;
+}}
+
 // Optional local GLB: files stay on the device, no upload to a server.
 let customCar=null;
 const modelInput=document.querySelector('#modelFile');
@@ -253,12 +354,36 @@ modelInput.addEventListener('change',async ev=>{
   root.position.sub(c);root.position.y-=b.min.y-c.y;
   if(customCar)car.remove(customCar);customCar=root;car.add(root);
   for(const obj of originalCarMeshes)obj.visible=false;
+  for(const vehicle of Object.values(vehicleModels))vehicle.group.visible=false;
   status.textContent='GLB chargé · modèles complexes parfois incompatibles.';
  }catch(err){status.textContent='GLB incompatible : '+(err?.message||'erreur de lecture');}
  finally{URL.revokeObjectURL(objectURL);}
 });
-const originalCarMeshes=[...car.children];
-let variant='classic';const originalBlue=blue.color.clone();const sportTrim=mat(0x131c24);const trimParts=[];for(const side of [-1,1]){trimParts.push(box(.14,.14,3.45,sportTrim,side*.91,.49,0,car));trimParts.push(box(.24,.08,1.0,sportTrim,side*.70,.48,-1.95,car))}const spoiler=box(1.7,.11,.32,sportTrim,0,1.32,1.93,car);function chooseVariant(which){variant=which;blue.color.setHex(which==='sport'?0xc92337:0x2870c0);spoiler.visible=which==='sport';trimParts.forEach(m=>m.visible=which==='sport');document.querySelector('#classic').classList.toggle('selected',which==='classic');document.querySelector('#sport').classList.toggle('selected',which==='sport');document.querySelector('#banner').textContent=which==='sport'?'RS Line inspirée sélectionnée · Bonne route !':'Citadine classique sélectionnée · Bonne route !'}document.querySelector('#classic').onclick=()=>chooseVariant('classic');document.querySelector('#sport').onclick=()=>chooseVariant('sport');document.querySelector('#garageButton').onclick=()=>document.querySelector('#garage').style.display='block';document.querySelector('#closegarage').onclick=()=>document.querySelector('#garage').style.display='none';chooseVariant('classic');const keys={};let gear=1,speed=0,heading=0,steer=0,rpm=850,score=100,camMode=0,indicator=false,engine=true,elapsed=0,lastPenalty=0;const names=['R','N','1','2','3','4','5','6'];const ratios=[3.2,0,3.5,2.2,1.5,1.1,.86,.7];let pos=new THREE.Vector3(0,0,15);const held={};document.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(['ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(!e.repeat){if(e.key==='ArrowUp')gear=Math.min(7,gear+1);if(e.key==='ArrowDown')gear=Math.max(0,gear-1);if(e.key.toLowerCase()==='c')camMode=(camMode+1)%5;if(e.key.toLowerCase()==='i')indicator=!indicator;if(e.key.toLowerCase()==='r'){resetDrive()}}});document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);for(const b of document.querySelectorAll('[data-k]')){b.onpointerdown=e=>{e.preventDefault();held[b.dataset.k]=true;b.setPointerCapture(e.pointerId)};b.onpointerup=b.onpointercancel=()=>held[b.dataset.k]=false}document.querySelector('#up').onclick=()=>{if(speed<2||gear>1)gear=Math.min(7,gear+1)};document.querySelector('#down').onclick=()=>{if(speed<2||gear>2)gear=Math.max(0,gear-1)};document.querySelector('#cam').onclick=()=>camMode=(camMode+1)%5;document.querySelector('#clutch').onpointerdown=e=>{held.clutch=true;e.currentTarget.setPointerCapture(e.pointerId)};document.querySelector('#clutch').onpointerup=document.querySelector('#clutch').onpointercancel=()=>held.clutch=false;
+let variant='classic';
+function chooseVariant(which){
+ if(!vehicleModels[which])return;
+ variant=which;
+ if(customCar){car.remove(customCar);customCar=null;}
+ for(const [name,vehicle] of Object.entries(vehicleModels))vehicle.group.visible=(name===which);
+ activeVehicle=vehicleModels[which];
+ for(const id of Object.keys(vehicleDefs))document.querySelector('#'+id).classList.toggle('selected',id===which);
+ document.querySelector('#vehicleName').textContent=vehicleDefs[which].name;
+ document.querySelector('#banner').textContent=vehicleDefs[which].name+' sélectionné · '+vehicleDefs[which].power+' ch simulés';
+}
+for(const id of Object.keys(vehicleDefs))document.querySelector('#'+id).onclick=()=>chooseVariant(id);
+document.querySelector('#garageButton').onclick=()=>document.querySelector('#garage').style.display='block';
+document.querySelector('#closegarage').onclick=()=>document.querySelector('#garage').style.display='none';
+chooseVariant('classic');
+const keys={};let gear=1,speed=0,heading=0,steer=0,rpm=850,score=100,camMode=0,indicator=false,engine=true,elapsed=0,lastPenalty=0,clutchValue=0;const names=['R','N','1','2','3','4','5','6'];const ratios=[3.2,0,3.5,2.2,1.5,1.1,.86,.7];let pos=new THREE.Vector3(0,0,15);const held={};
+function changeGear(delta){
+ const next=Math.max(0,Math.min(7,gear+delta));if(next===gear)return;
+ const clutchHeld=!!(keys.e||held.clutch||navigator.getGamepads?.()[0]?.buttons[0]?.pressed);
+ if(speed>2.5&&!clutchHeld){document.querySelector('#banner').textContent='⚠️ Embraye avant de changer de vitesse !';return;}
+ if((gear===0||next===0)&&speed>3){document.querySelector('#banner').textContent='⚠️ Arrête-toi avant de passer en marche arrière.';return;}
+ gear=next;document.querySelector('#banner').textContent='Rapport '+names[gear]+' engagé.';
+}
+document.querySelector('#lightsButton').onclick=()=>{lightsOn=!lightsOn;document.querySelector('#lightsButton').textContent=lightsOn?'💡 Feux ON':'💡 Feux';};
+document.querySelector('#blinkButton').onclick=()=>{indicator=!indicator;document.querySelector('#blinkButton').textContent=indicator?'↔ Clign. ON':'↔ Clign.';};document.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(['ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(!e.repeat){if(e.key==='ArrowUp')changeGear(1);if(e.key==='ArrowDown')changeGear(-1);if(e.key.toLowerCase()==='c')camMode=(camMode+1)%5;if(e.key.toLowerCase()==='i')indicator=!indicator;if(e.key.toLowerCase()==='l')lightsOn=!lightsOn;if(e.key.toLowerCase()==='r'){resetDrive()}}});document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);for(const b of document.querySelectorAll('[data-k]')){b.onpointerdown=e=>{e.preventDefault();held[b.dataset.k]=true;b.setPointerCapture(e.pointerId)};b.onpointerup=b.onpointercancel=()=>held[b.dataset.k]=false}document.querySelector('#up').onclick=()=>changeGear(1);document.querySelector('#down').onclick=()=>changeGear(-1);document.querySelector('#cam').onclick=()=>camMode=(camMode+1)%5;document.querySelector('#clutch').onpointerdown=e=>{held.clutch=true;e.currentTarget.setPointerCapture(e.pointerId)};document.querySelector('#clutch').onpointerup=document.querySelector('#clutch').onpointercancel=()=>held.clutch=false;
 function resetDrive(){pos.set(0,0,15);speed=0;gear=1;score=100;heading=0;engine=true;rpm=850;document.querySelector('#banner').textContent='Moteur prêt · Embraye puis passe la première.'}
 document.querySelector('#startButton').onclick=()=>{if(!engine){engine=true;gear=1;rpm=850;document.querySelector('#banner').textContent='Moteur redémarré · Embraye puis passe la première.'}else if(speed<1&&gear===1){engine=false;speed=0;rpm=0;document.querySelector('#banner').textContent='Moteur arrêté.'}else{document.querySelector('#banner').textContent='Arrêt du moteur : immobilise-toi au point mort.'}};
 document.querySelector('#helpButton').onclick=()=>document.querySelector('#help').classList.toggle('open');
@@ -269,37 +394,48 @@ renderer.domElement.addEventListener('pointermove',e=>{if(!dragging||camMode!==4
 renderer.domElement.addEventListener('pointerup',()=>dragging=false);renderer.domElement.addEventListener('pointercancel',()=>dragging=false);
 const camNames=['extérieure','conducteur','capot','pare-chocs','libre'];
 const clock=new THREE.Clock();function loop(){requestAnimationFrame(loop);let dt=Math.min(.045,clock.getDelta());elapsed+=dt;animateTraffic(elapsed);let pad=navigator.getGamepads?.()[0];const btn=i=>pad?.buttons[i]?.pressed||false;const axis=i=>pad?.axes[i]||0;let gas=Math.max(keys.w||keys.z||held.gas?1:0,pad?.buttons[7]?.value||0),brake=Math.max(keys.s||held.brake?1:0,pad?.buttons[6]?.value||0),clutch=!!(keys.e||held.clutch||btn(0));let target=(keys.a||keys.q||held.left?-1:0)+(keys.d||held.right?1:0);if(Math.abs(axis(0))>.12)target=axis(0);steer+=(target-steer)*Math.min(1,dt*5);
-if(pad){if(btn(5)&&!keys.rb){gear=Math.min(7,gear+1);keys.rb=true}if(!btn(5))keys.rb=false;if(btn(4)&&!keys.lb){gear=Math.max(0,gear-1);keys.lb=true}if(!btn(4))keys.lb=false;if(btn(3)&&!keys.y){camMode=(camMode+1)%5;keys.y=true}if(!btn(3))keys.y=false;if(btn(2)&&!keys.x){indicator=!indicator;keys.x=true}if(!btn(2))keys.x=false}
-// Lightweight longitudinal dynamics: progressive clutch, idle torque, drag and engine braking.
-let ms=speed/3.6;
-const clutchPedal=clutch?1:0;
-const ratio=gear!==1?ratios[gear]:0;
-const wheelRPM=ms/(2*Math.PI*.35)*60;
-const coupledRPM=wheelRPM*ratio*3.9;
-const targetRPM=engine?(850+gas*4800):0;
-const coupling=gear!==1?(1-clutchPedal):0;
-rpm=engine?Math.round(Math.max(650,Math.min(6500,targetRPM*(1-coupling*.78)+coupledRPM*coupling*.78))):0;
-const torqueCurve=Math.max(.25,1-Math.pow((rpm-3000)/3800,2));
-const traction=engine&&gear!==1?gas*5.6*torqueCurve/Math.sqrt(gear===0?1:gear-1)*coupling:0;
-const engineBrake=engine&&gear>0&&!clutch?(.55+ratio*.22)*(1-gas):0;
-const resistance=.13+.011*ms*ms;
-const acceleration=traction-brake*9.5-engineBrake-resistance;
-ms=Math.max(0,ms+acceleration*dt);speed=ms*3.6;const direction=gear===0?-1:1;
-heading+=steer*ms*dt*(.035/(1+ms*.016))*(gear===0?-1:1);
-pos.x+=Math.sin(heading)*ms*dt*direction;pos.z-=Math.cos(heading)*ms*dt*direction;
+if(pad){if(btn(5)&&!keys.rb){changeGear(1);keys.rb=true}if(!btn(5))keys.rb=false;if(btn(4)&&!keys.lb){changeGear(-1);keys.lb=true}if(!btn(4))keys.lb=false;if(btn(3)&&!keys.y){camMode=(camMode+1)%5;keys.y=true}if(!btn(3))keys.y=false;if(btn(2)&&!keys.x){indicator=!indicator;keys.x=true}if(!btn(2))keys.x=false;if(btn(1)&&!keys.b){lightsOn=!lightsOn;keys.b=true}if(!btn(1))keys.b=false}
+// Simplified longitudinal model: power/weight, engine drag, clutch, gear ratios.
+const spec=vehicleDefs[variant],ms0=speed/3.6;
+let ms=ms0;
+clutchValue+=((clutch?1:0)-clutchValue)*Math.min(1,dt*9);
+// A held clutch disconnects the wheels, a released clutch transmits power.
+const coupling=1-clutchValue;
+const ratio=gear===1?0:ratios[gear];
+const wheelRPM=(ms/(2*Math.PI*(spec.style==='suv'?.405:.35)))*60;
+const coupledRPM=wheelRPM*ratio*3.75;
+const freeRPM=engine?850+gas*5100:0;
+rpm=engine?Math.round(Math.max(650,Math.min(6500,freeRPM*(1-coupling*.82)+coupledRPM*coupling*.82))):0;
+const torqueCurve=Math.max(.27,1-Math.pow((rpm-3200)/3900,2));
+const powerFactor=(spec.power/90)*(1120/spec.mass);
+const traction=engine&&gear!==1?gas*5.0*powerFactor*torqueCurve*(gear===0?.75:1/Math.sqrt(Math.max(1,gear-1)))*coupling:0;
+const engineBrake=engine&&gear>1&&!clutch?(.34+ratio*.19)*(1-gas):0;
+const rollingResistance=.10+.014*ms*ms;
+const brakingForce=brake*9.3;
+ms=Math.max(0,ms+(traction-brakingForce-engineBrake-rollingResistance)*dt);
+speed=ms*3.6;
+const direction=gear===0?-1:1;
+const steerLimit=Math.max(.36,1-ms/57);
+heading+=steer*steerLimit*ms*dt*(.044/(1+ms*.018))*(gear===0?-1:1);
+pos.x+=Math.sin(heading)*ms*dt*direction;
+pos.z-=Math.cos(heading)*ms*dt*direction;
 if(Math.abs(pos.x)>315||Math.abs(pos.z)>315){speed=0;pos.set(0,0,15)}
-if(engine&&gear===2&&!clutch&&speed<2&&gas<.15&&elapsed>3){
+if(engine&&(gear===2||gear===0)&&!clutch&&speed<1.7&&gas<.12&&elapsed>3){
  engine=false;rpm=0;document.querySelector('#banner').textContent='Moteur calé : embraye et redémarre.';
 }
-if(speed>50&&elapsed-lastPenalty>3){score=Math.max(0,score-5);lastPenalty=elapsed}if(Math.abs(pos.x)<5&&Math.abs(pos.z+75)<4&&speed>8&&elapsed-lastPenalty>3){score=Math.max(0,score-8);lastPenalty=elapsed;document.querySelector('#banner').textContent='Intersection : ralentis et vérifie les priorités !'}const distRoad=Math.min(...[-225,-150,-75,0,75,150,225].map(v=>Math.min(Math.abs(pos.x-v),Math.abs(pos.z-v))));if(distRoad>7&&elapsed-lastPenalty>2){score=Math.max(0,score-10);lastPenalty=elapsed}car.position.copy(pos);car.rotation.y=heading;wheel.rotation.z=-steer*.75;for(const w of wheels)w.rotation.x-=ms*dt/.35*(gear===0?-1:1);
+if(speed>50&&elapsed-lastPenalty>3){score=Math.max(0,score-5);lastPenalty=elapsed}if(Math.abs(pos.x)<5&&Math.abs(pos.z+75)<4&&speed>8&&elapsed-lastPenalty>3){score=Math.max(0,score-8);lastPenalty=elapsed;document.querySelector('#banner').textContent='Intersection : ralentis et vérifie les priorités !'}const distRoad=Math.min(...[-225,-150,-75,0,75,150,225].map(v=>Math.min(Math.abs(pos.x-v),Math.abs(pos.z-v))));if(distRoad>7&&elapsed-lastPenalty>2){score=Math.max(0,score-10);lastPenalty=elapsed}car.position.copy(pos);car.rotation.y=heading;if(activeVehicle){activeVehicle.steering.rotation.z=-steer*.55;
+ for(const pivot of activeVehicle.front)pivot.rotation.y=-steer*.40;
+ for(const rotor of activeVehicle.wheels)rotor.rotation.x-=ms*dt/(activeVehicle.spec.style==='suv'?.405:.35)*(gear===0?-1:1);
+ activeVehicle.group.rotation.z=-steer*Math.min(speed/60,1)*.026;
+}updateVehicleLights(brake>.12,elapsed);
 // Simple proximity response to scripted cars, not a collision engine.
 for(const v of traffic){if(v.body.position.distanceTo(car.position)<2.6 && speed>2 && elapsed-lastPenalty>1.5){score=Math.max(0,score-15);lastPenalty=elapsed;speed*=.35;document.querySelector('#banner').textContent='Attention : distance de sécurité insuffisante !'}}
 const cp=new THREE.Vector3(),look=new THREE.Vector3();
 if(camMode===0){cp.set(0,3.6,9.2);look.set(0,1.2,-9)}
-else if(camMode===1){cp.set(-.39,1.55,.02);look.set(-.39,1.48,-22)}
+else if(camMode===1){cp.set(-.39,variant==='suv'?1.70:1.55,.02);look.set(-.39,variant==='suv'?1.58:1.48,-22)}
 else if(camMode===2){cp.set(0,1.48,-1.88);look.set(0,1.45,-22)}
 else if(camMode===3){cp.set(0,.63,-2.23);look.set(0,.85,-22)}
 else {const rightX=axis(2),rightY=axis(3);if(Math.abs(rightX)>.15)freeYaw+=rightX*dt*1.7;if(Math.abs(rightY)>.15)freePitch=Math.max(-.15,Math.min(1.15,freePitch+rightY*dt));const r=8.5;cp.set(Math.sin(freeYaw)*r,2.2+Math.sin(freePitch)*r,Math.cos(freeYaw)*r);look.set(0,1.15,0)}
 cp.applyAxisAngle(new THREE.Vector3(0,1,0),heading).add(pos);camera.position.lerp(cp,Math.min(1,dt*8));look.applyAxisAngle(new THREE.Vector3(0,1,0),heading).add(pos);camera.lookAt(look);
-document.querySelector('#speed').textContent=Math.round(speed)+' km/h';document.querySelector('#rpm').textContent=rpm+' tr/min';document.querySelector('#gear').textContent='Rapport : '+names[gear]+(clutch?' · embrayage':'');document.querySelector('#score').textContent='Auto-école : '+score+' points';document.querySelector('#mode').textContent=(variant==='sport'?'RS Line':'Classique')+' · Caméra : '+camNames[camMode];document.querySelector('#state').textContent='Moteur : '+(engine?'allumé':'arrêté / calé')+' · Clignotant : '+(indicator?'ON':'OFF');renderer.render(scene,camera)}loop();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+document.querySelector('#speed').textContent=Math.round(speed)+' km/h';document.querySelector('#rpm').textContent=rpm+' tr/min';document.querySelector('#gear').textContent='Rapport : '+names[gear]+(clutch?' · embrayage':'');document.querySelector('#score').textContent='Auto-école : '+score+' points';document.querySelector('#mode').textContent=vehicleDefs[variant].name+' · Caméra : '+camNames[camMode];document.querySelector('#state').textContent='Moteur : '+(engine?'allumé':'arrêté / calé')+' · Clignotant : '+(indicator?'ON':'OFF')+' · Feux : '+(lightsOn?'ON':'OFF');renderer.render(scene,camera)}loop();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 </script></body></html>
